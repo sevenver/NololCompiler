@@ -51,3 +51,10 @@ jobs:
       with:
         name: nololcompiler-win-x64
         path: ${{ env.Publish_Path  }}
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+       files: ${{ env.Publish_Path  }}/nololcompiler-win-x64.exe
+            
