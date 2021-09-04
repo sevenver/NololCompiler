@@ -45,16 +45,19 @@ jobs:
       env:
         Configuration: ${{ matrix.configuration }}
 
-    # Upload the MSIX package: https://github.com/marketplace/actions/upload-artifact
-    - name: Upload publish artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: nololcompiler-win-x64
-        path: ${{ env.Publish_Path  }}
+    ## Upload the MSIX package: https://github.com/marketplace/actions/upload-artifact
+    #- name: Upload publish artifacts
+    #  uses: actions/upload-artifact@v2
+    #  with:
+    #    name: nololcompiler-win-x64
+    #    path: ${{ env.Publish_Path  }}
 
     - name: Create Release
-      uses: softprops/action-gh-release@v1
+      uses: "marvinpinto/action-automatic-releases@latest"
       if: startsWith(github.ref, 'refs/tags/')
       with:
-       files: ${{ env.Publish_Path  }}/nololcompiler-win-x64.exe
+       repo_token: "${{ secrets.GITHUB_TOKEN }}"
+       automatic_release_tag: "latest"
+       prerelease: true
+       files: ${{ env.Publish_Path  }}/nololcompiler.exe
             
