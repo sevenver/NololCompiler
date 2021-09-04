@@ -40,13 +40,13 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
 
     # Create the app package by building and packaging the Windows Application Packaging project
-    - name: Restore and Publish Application
+    - name: Restore and Publish Application win-x64
       run: dotnet publish $env:Project_Path --configuration $env:Configuration -f net5.0 -p:PublishSingleFile=true -p:PublishReadyToRun=true -p:PublishTrimmed=true --self-contained true --runtime win-x64 --output $env:Publish_Path
       env:
         Configuration: ${{ matrix.configuration }}
 
-    - name: Restore and Publish Application
-      run: dotnet publish $env:Project_Path --configuration $env:Configuration -f net5.0 -p:PublishSingleFile=true -p:PublishReadyToRun=true -p:PublishTrimmed=true --self-contained true --runtime linux-x64 --output $env:Publish_Path
+    - name: Restore and Publish Application linux-x64
+      run: dotnet publish $env:Project_Path --configuration $env:Configuration -f net5.0 -p:PublishSingleFile=true -p:PublishReadyToRun=true --self-contained true --runtime linux-x64 --output $env:Publish_Path
       env:
         Configuration: ${{ matrix.configuration }}
 
