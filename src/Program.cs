@@ -19,6 +19,7 @@ if (p is NotParsed<Options>)
 {
     return;
 }
+//workflowTest 1
 
 if (!File.Exists(opts.YODKFile))
 {
