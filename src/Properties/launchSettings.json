@@ -2,7 +2,7 @@
   "profiles": {
     "NololCompiler": {
       "commandName": "Project",
-      "commandLineArgs": "-d C:\\Users\\seven\\source\\nololTest -f C:\\Users\\seven\\source\\nololTest\\yodk.exe"
+      "commandLineArgs": "-v compile"
     }
   }
 }

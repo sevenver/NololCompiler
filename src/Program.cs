@@ -5,12 +5,21 @@ using System.IO;
 using System.Linq;
 
 Options opts = null;
-var p = Parser.Default.ParseArguments<Options>(args).WithParsed(o=> opts = o).WithNotParsed(_=>opts = new Options());
+var parser = new Parser(setting =>
+{
+    setting.AutoHelp = true;
+    setting.AutoVersion = true;
+    setting.CaseInsensitiveEnumValues = true;
+    setting.CaseSensitive = false;
+    setting.HelpWriter = Console.Out;
+});
+var p = parser.ParseArguments<Options>(args).WithParsed(o=> opts = o).WithNotParsed(_=>opts = new Options());
 opts.Init();
-if (p is NotParsed<Options> np && np.Errors.Any(a=>a.StopsProcessing))
+if (p is NotParsed<Options>)
 {
     return;
 }
+
 if (!File.Exists(opts.YODKFile))
 {
     Console.WriteLine($"Can't find yodk.exe in {opts.YODKFile}");
