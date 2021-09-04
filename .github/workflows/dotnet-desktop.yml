@@ -21,9 +21,7 @@ jobs:
       Solution_Name: NololCompiler.sln                          # Replace with your solution name, i.e. MyWpfApp.sln.
       Publish_Path: src\bin\Release\net5.0\publish              # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
       Project_Path: src\NololCompiler.csproj                    # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
-
-    outputs:
-        Version: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
+      
 
     steps:
     - name: Checkout
@@ -52,17 +50,6 @@ jobs:
       run: dotnet publish $env:Project_Path --configuration $env:Configuration -f net5.0 --self-contained true --runtime win-x64 --output $env:Publish_Path
       env:
         Configuration: ${{ matrix.configuration }}
-
-    - name: Install GitVersion
-      uses: gittools/actions/gitversion/setup@0.9.7
-      with:
-        versionSpec: '5.x'
-    
-    - name: Determinate Version
-      uses: gittools/actions/gitversion/execute@v0.9.7
-      id: gitversion
-
-        
 
     # Upload the MSIX package: https://github.com/marketplace/actions/upload-artifact
     - name: Upload publish artifacts
