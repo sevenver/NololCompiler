@@ -49,5 +49,5 @@ jobs:
     - name: Upload publish artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: nololcompiler.${{ steps.gitversion.outputs.majorMinorPatch }}
+        name: nololcompiler-win-x64
         path: ${{ env.Publish_Path  }}
