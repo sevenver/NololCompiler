@@ -22,6 +22,9 @@ jobs:
       Publish_Path: src\bin\Release\net5.0\publish              # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
       Project_Path: src\NololCompiler.csproj                    # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
 
+    outputs:
+        Version: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
+
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -50,9 +53,20 @@ jobs:
       env:
         Configuration: ${{ matrix.configuration }}
 
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@0.9.7
+      with:
+        versionSpec: '5.x'
+    
+    - name: Determinate Version
+      uses: gittools/actions/gitversion/execute@v0.9.7
+      id: gitversion
+
+        
+
     # Upload the MSIX package: https://github.com/marketplace/actions/upload-artifact
     - name: Upload publish artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: MSIX Package
+        name: nololcompiler.${{ steps.gitversion.outputs.majorMinorPatch }}
         path: ${{ env.Publish_Path  }}
