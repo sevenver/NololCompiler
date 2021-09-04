@@ -57,7 +57,7 @@ jobs:
       with:
        repo_token: "${{ secrets.GITHUB_TOKEN }}"
        automatic_release_tag: "latest"
-       prerelease: true
-       title: "Development Build1"
+       prerelease: false
+       title: "Latest"
        files: src/bin/Release/net5.0/publish/NololCompiler.exe
             
