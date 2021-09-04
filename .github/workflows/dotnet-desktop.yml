@@ -41,16 +41,14 @@ jobs:
 
     # Create the app package by building and packaging the Windows Application Packaging project
     - name: Restore and Publish Application
-      run: dotnet publish $env:Project_Path --configuration $env:Configuration -f net5.0 --self-contained true --runtime win-x64 --output $env:Publish_Path
+      run: dotnet publish $env:Project_Path --configuration $env:Configuration -f net5.0 -p:PublishSingleFile=true -p:PublishReadyToRun=true -p:PublishTrimmed=true --self-contained true --runtime win-x64 --output $env:Publish_Path
       env:
         Configuration: ${{ matrix.configuration }}
 
-    ## Upload the MSIX package: https://github.com/marketplace/actions/upload-artifact
-    #- name: Upload publish artifacts
-    #  uses: actions/upload-artifact@v2
-    #  with:
-    #    name: nololcompiler-win-x64
-    #    path: ${{ env.Publish_Path  }}
+    - name: Restore and Publish Application
+      run: dotnet publish $env:Project_Path --configuration $env:Configuration -f net5.0 -p:PublishSingleFile=true -p:PublishReadyToRun=true -p:PublishTrimmed=true --self-contained true --runtime linux-x64 --output $env:Publish_Path
+      env:
+        Configuration: ${{ matrix.configuration }}
 
     - name: Create Release
       uses: "marvinpinto/action-automatic-releases@latest"
@@ -59,5 +57,7 @@ jobs:
        automatic_release_tag: "verylatest"
        prerelease: false
        title: "Latest"
-       files: src/bin/Release/net5.0/publish/NololCompiler.exe
+       files: |
+        src/bin/Release/net5.0/publish/nololCompiler.exe
+        src/bin/Release/net5.0/publish/nololCompiler
             
