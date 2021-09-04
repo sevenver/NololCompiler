@@ -60,5 +60,4 @@ jobs:
        prerelease: true
        title: "Development Build1"
        files: ${{ env.Publish_Path }}\nololcompiler.exe
-       path: ${{ env.Publish_Path  }}
             
