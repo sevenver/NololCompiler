@@ -46,7 +46,7 @@ jobs:
         Configuration: ${{ matrix.configuration }}
 
     - name: Restore and Publish Application linux-x64
-      run: dotnet publish $env:Project_Path --configuration $env:Configuration -f net5.0 -p:PublishSingleFile=true -p:PublishReadyToRun=true --self-contained true --runtime linux-x64 --output $env:Publish_Path
+      run: dotnet publish $env:Project_Path --configuration $env:Configuration -f net5.0 -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true --runtime linux-x64 --output $env:Publish_Path
       env:
         Configuration: ${{ matrix.configuration }}
 
