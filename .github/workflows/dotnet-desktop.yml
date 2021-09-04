@@ -40,7 +40,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
 
     # Create the app package by building and packaging the Windows Application Packaging project
-    - name: Publish Application
+    - name: Restore and Publish Application
       run: dotnet publish $env:Project_Path --configuration $env:Configuration -f net5.0 --self-contained true --runtime win-x64 --output $env:Publish_Path
       env:
         Configuration: ${{ matrix.configuration }}
